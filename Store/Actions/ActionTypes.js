@@ -1,0 +1,1 @@
+export const PLACE_ADD = "PLACE_ADD";
