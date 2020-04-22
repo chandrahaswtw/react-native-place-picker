@@ -1,33 +1,33 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Alert, Image } from 'react-native';
-import FormInput from './../UI/FormInput';
-import {colors} from './../assets/colors';
+import FormInput from '../../UI/FormInput';
+import { colors } from '../../assets/colors';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import {SetPermissions} from './../helpers/permissions';
+import { SetPermissions } from '../../helpers/permissions';
+import LocationSection from './LocationSection';
 
 const AddPlace = props => {
 
-    const cameraUsage =  useCallback(async () => {
+    const cameraUsage = useCallback(async () => {
         const permissionResult = await SetPermissions(Permissions.CAMERA_ROLL, Permissions.CAMERA);
-        if(!permissionResult)
-        {
-            Alert.alert("OOPS!", "This operation needs the use of Camera!!",[{
-                text : "OK",
-                style : "cancel"
+        if (!permissionResult) {
+            Alert.alert("OOPS!", "This operation needs the use of Camera!!", [{
+                text: "OK",
+                style: "cancel"
             }])
         }
         else {
-           var img = await ImagePicker.launchCameraAsync({
+            var img = await ImagePicker.launchCameraAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
                 aspect: [4, 3],
                 quality: 1,
-              })
+            })
 
-              props.setImgURI(img.uri);
+            props.setImgURI(img.uri);
         }
-    },[])
+    }, [])
 
     return (
         <View style={styles.wrapper}>
@@ -38,10 +38,13 @@ const AddPlace = props => {
             </FormInput>
             <View style={styles.imageWrapper}>
                 <TouchableOpacity style={styles.imageInnerWrapper} onPress={cameraUsage}>
-                    {props.imgURI ? <Image style={styles.imageStyles} source={{uri : props.imgURI}}></Image>
-                    : <Text style={{ ...styles.textStyles, textAlign: "center" }}>CLICK TO ADD IMAGE</Text>}
+                    {props.imgURI ? <Image style={styles.imageStyles} source={{ uri: props.imgURI }}></Image>
+                        : <Text style={{ ...styles.textStyles, textAlign: "center" }}>CLICK TO ADD IMAGE</Text>}
                 </TouchableOpacity>
             </View>
+            <LocationSection
+                location={props.location}
+                setLocation={props.setLocation}></LocationSection>
         </View>
     )
 }
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     },
     textStyles: {
         fontFamily: "open-sans-semiBold-italic",
-        color : colors.success
+        color: colors.success
     },
     imageWrapper: {
         padding: 10,
@@ -60,16 +63,16 @@ const styles = StyleSheet.create({
         borderColor: colors.simpleGrey,
         borderStyle: "dashed",
         borderRadius: 5,
-        height : Dimensions.get("window").height*0.25
+        height: Dimensions.get("window").height * 0.25
     },
-    imageInnerWrapper : {
+    imageInnerWrapper: {
         flex: 1,
-        justifyContent : 'center'
+        justifyContent: 'center'
     },
-    imageStyles : {
-        width : "100%",
-        height : "100%",
-        resizeMode : "cover"
+    imageStyles: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover"
     }
 })
 

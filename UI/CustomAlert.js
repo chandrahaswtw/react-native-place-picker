@@ -3,7 +3,7 @@ import { Alert} from 'react-native';
 
 const CustomAlert = (title, body) => {
     Alert.alert(title, body, [{
-        text : "OK",
+        text : "CANCEL",
         style : "cancel"
     }])
 }

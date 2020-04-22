@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import AddPlaceComponent from "./../components/AddPlace";
+import AddPlaceComponent from "../components/AddPlace/AddPlace";
 import CustomHeaderButton from './../UI/CustomHeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ const AddPlace = props => {
 
     const [placeTitle, setPlaceTitle] = useState("");
     const [imgURI, setImgURI] = useState("");
+    const [location, setLocation] = useState("");
 
     const dispatch = useDispatch();
 
@@ -32,6 +33,8 @@ const AddPlace = props => {
             value={placeTitle}
             imgURI={imgURI}
             setImgURI={setImgURI}
+            location={location}
+            setLocation={setLocation}
         ></AddPlaceComponent>
     )
 }
