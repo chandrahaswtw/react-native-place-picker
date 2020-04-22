@@ -12,11 +12,6 @@ import thunk from 'redux-thunk';
 import { init } from './helpers/db';
 
 init()
-  .then(() => {
-  })
-  .catch((e) => {
-    console.log(e);
-  });
 
 const fetchFonts = () => {
   return Font.loadAsync({

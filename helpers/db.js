@@ -40,3 +40,17 @@ export const extractPlaces = () => {
 
     return prom;
 }
+
+export const deletePlace = (id) => {
+    const prom = new Promise((res, rej)=>{
+        db.transaction((tx)=>{
+            tx.executeSql("DELETE FROM places WHERE id = ?",
+            [id],
+            (_, e)=>{res(e)},
+            (_, e)=>{rej(e)}
+            )
+        })
+    })
+
+    return prom
+}

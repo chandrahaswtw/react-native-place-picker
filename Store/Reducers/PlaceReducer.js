@@ -17,17 +17,23 @@ const PlaceReducer = (state = initial_state, action) => {
         case ACTION_TYPES.PLACE_EXTRACT:
             var newArr = action.value.result.rows._array.map((el)=>{
                 return {
-                    id : el.id,
+                    id : String(el.id),
                     info : {
                         name : el.title,
                         uri : el.imageURI
                     }
                 }
             })
-            console.log(newArr);
             return {
                 places : newArr
             };
+        case ACTION_TYPES.PLACE_DELETE: 
+            var newArray = state.places.filter((el)=>{
+                return el.id !== action.value
+            })
+            return {
+                places: newArray
+            }
         default:
             return state
     }

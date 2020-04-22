@@ -4,19 +4,12 @@ import FormInput from './../UI/FormInput';
 import {colors} from './../assets/colors';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import {SetPermissions} from './../helpers/permissions';
 
 const AddPlace = props => {
 
-    const getPermissionAsync = useCallback(async () => {
-          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
-          if (status !== 'granted') {
-            return false;
-          }
-          return true;
-      },[]);
-
     const cameraUsage =  useCallback(async () => {
-        const permissionResult = await getPermissionAsync();
+        const permissionResult = await SetPermissions(Permissions.CAMERA_ROLL, Permissions.CAMERA);
         if(!permissionResult)
         {
             Alert.alert("OOPS!", "This operation needs the use of Camera!!",[{
@@ -34,7 +27,7 @@ const AddPlace = props => {
 
               props.setImgURI(img.uri);
         }
-    },[getPermissionAsync])
+    },[])
 
     return (
         <View style={styles.wrapper}>
