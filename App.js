@@ -9,6 +9,15 @@ import { Provider } from 'react-redux';
 import PlaceReducer from './Store/Reducers/PlaceReducer';
 import thunk from 'redux-thunk';
 
+import { init } from './helpers/db';
+
+init()
+  .then(() => {
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+
 const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans-regular": require("./assets/Fonts/OpenSans-Regular.ttf"),
