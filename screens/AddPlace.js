@@ -16,26 +16,27 @@ const AddPlace = props => {
     const dispatch = useDispatch();
 
     const dispatchFunction = useCallback(() => {
-        if (placeTitle && imgURI) {
+        if (placeTitle && imgURI && location) {
             dispatch(PLACE_ADD_ACTION_CREATOR(placeTitle, imgURI));
             props.navigation.goBack();
         }
         else
-            CustomAlert("CANNOT ADD NEW PLACE", "Title or image is missing. Kindly fill both and try to submit again");
-    }, [placeTitle, imgURI])
+            CustomAlert("CANNOT ADD NEW PLACE", "Title/Image/Location is missing. Kindly fill both and try to submit again");
+    }, [placeTitle, imgURI,location])
 
     useEffect(() => {
         props.navigation.setParams({ dispatchFunction });
     }, [dispatchFunction])
 
     return (
-        <AddPlaceComponent setPlaceTitle={setPlaceTitle}
-            value={placeTitle}
-            imgURI={imgURI}
-            setImgURI={setImgURI}
-            location={location}
-            setLocation={setLocation}
-        ></AddPlaceComponent>
+            <AddPlaceComponent setPlaceTitle={setPlaceTitle}
+                value={placeTitle}
+                imgURI={imgURI}
+                setImgURI={setImgURI}
+                location={location}
+                setLocation={setLocation}
+                navigation={props.navigation}
+            ></AddPlaceComponent>
     )
 }
 

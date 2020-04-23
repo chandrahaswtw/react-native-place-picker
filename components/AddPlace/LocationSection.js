@@ -5,6 +5,7 @@ import { SetPermissions } from './../../helpers/permissions';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import CustomAlert from './../../UI/CustomAlert';
+import ENV from "./../../env";
 
 const LocationSection = props => {
 
@@ -43,7 +44,7 @@ const LocationSection = props => {
                <Image style={{height : "100%", width : "100%", resizeMode : "cover"}}
                source = {{uri : `https://maps.googleapis.com/maps/api/staticmap?&zoom=13&size=600x300&maptype=roadmap
                &markers=color:red%7Clabel:C%7C${props.location.lat},${props.location.lng}
-               &key=AIzaSyAnhyzA_r2N8ZfwsQXE0mCIUz7dHYOfUfs`}}>
+               &key=${ENV().googleApiKey}`}}>
                </Image>
                :<Text style={styles.textStyles}>CLICK TO FETCH CURRENT LOCATION</Text>} 
             </TouchableOpacity>}

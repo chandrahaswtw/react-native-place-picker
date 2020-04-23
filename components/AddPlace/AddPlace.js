@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Alert, Image } from 'react-native';
 import FormInput from '../../UI/FormInput';
 import { colors } from '../../assets/colors';
@@ -6,8 +6,23 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { SetPermissions } from '../../helpers/permissions';
 import LocationSection from './LocationSection';
+import CustomButton from './../../UI/CustomButton';
 
 const AddPlace = props => {
+
+    var latitude = props.navigation.getParam("latitude"); 
+    var longitude = props.navigation.getParam("longitude"); 
+
+    useEffect(()=>{
+        if(latitude && longitude)
+        {
+            props.setLocation({
+                lat : latitude,
+                lng : longitude
+            })
+        }
+    },[latitude, longitude])
+    
 
     const cameraUsage = useCallback(async () => {
         const permissionResult = await SetPermissions(Permissions.CAMERA_ROLL, Permissions.CAMERA);
@@ -24,7 +39,6 @@ const AddPlace = props => {
                 aspect: [4, 3],
                 quality: 1,
             })
-
             props.setImgURI(img.uri);
         }
     }, [])
@@ -45,6 +59,7 @@ const AddPlace = props => {
             <LocationSection
                 location={props.location}
                 setLocation={props.setLocation}></LocationSection>
+            <CustomButton title="PICK A LOCATION" color={colors.primary} onPressHandler={()=>{props.navigation.navigate("PLACEMAP")}}></CustomButton>
         </View>
     )
 }

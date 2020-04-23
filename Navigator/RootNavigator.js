@@ -30,7 +30,10 @@ const stackNavigator = createStackNavigator({
         }
     },
     PLACEMAP : {
-        screen : PlaceMap
+        screen : PlaceMap,
+        navigationOptions : {
+            headerTitle : "PICK A LOCATION"
+        }
     }
 }, {
     initialRouteName : "PLACESLIST",

@@ -37,7 +37,7 @@ const PlacesList = props => {
                     </ImageBackground>
                 </View>
                 <View style={styles.itemWrapper}>
-                    <Text>{item.info.name}</Text>
+                    <Text style={{ textAlign: "center", fontFamily: "open-sans-semiBold-italic" }}>{item.info.name}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     },
 
     itemWrapper: {
-        paddingTop: 10
+        flex : 1,
+        justifyContent : "center",
     },
 
     imageStyles: {
