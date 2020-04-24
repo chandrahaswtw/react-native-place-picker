@@ -25,19 +25,20 @@ const PlacesList = props => {
     }
 
     const individualItem = item => (
-        <TouchableOpacity activeOpacity={0.9} style={{ marginVertical: 10, paddingHorizontal: 10 }}>
+        <TouchableOpacity activeOpacity={0.5}  style={{ marginVertical: 10, paddingHorizontal: 10 }} onPress={()=>{props.navigation.navigate("PLACEDESC",{title : item.info.name,uri: item.info.uri, lat: item.info.lat, lng: item.info.lng})}}>
             <View style={styles.contentOuterWrapper}>
-                <View style={styles.imageWrapper}>
-                    <ImageBackground style={styles.imageStyles} source={{ uri: item.info.uri }}>
-                        <View style={{ alignItems: "flex-end" }}>
-                            <TouchableOpacity style={{ padding: 5 }} onPress={deleteHandler.bind(null, item.id)}>
-                                <AntDesign name="close" size={23} color={colors.danger}></AntDesign>
-                            </TouchableOpacity>
-                        </View>
-                    </ImageBackground>
+                <View style={styles.crossStyles}>
+                    <TouchableOpacity onPress={deleteHandler.bind(null, item.id)}>
+                        <AntDesign name="close" size={23} color={colors.danger}></AntDesign>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.itemWrapper}>
-                    <Text style={{ textAlign: "center", fontFamily: "open-sans-semiBold-italic" }}>{item.info.name}</Text>
+                <View style={{flexDirection : "row", alignItems : "center"}}>
+                    <View style={styles.imageWrapper}>
+                        <ImageBackground style={styles.imageStyles} source={{ uri: item.info.uri }}></ImageBackground>
+                    </View>
+                    <View style={styles.itemWrapper}>
+                        <Text style={{ textAlign: "center", fontFamily: "open-sans-semiBold-italic" }}>{item.info.name}</Text>
+                    </View>
                 </View>
             </View>
         </TouchableOpacity>
@@ -78,28 +79,32 @@ const styles = StyleSheet.create({
     },
 
     contentOuterWrapper: {
-        minHeight: Dimensions.get("window").width * 0.6,
         borderColor: colors.yarrow,
         borderWidth: 2,
         borderRadius: 3,
-        alignItems: "center",
-        padding: 10
+        padding: 10,
+        position: "relative"
+    },
+
+    crossStyles: {
+        position: "absolute",
+        top: 5,
+        right: 5
     },
 
     imageWrapper: {
-        width: "100%",
-        height: Dimensions.get("window").width * 0.4,
-        borderRadius: 5,
+        width: 100,
+        height: 100,
+        borderRadius: 100,
         borderColor: colors.simpleGrey,
         borderWidth: 1,
         overflow: "hidden",
         zIndex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
     },
 
     itemWrapper: {
-        flex : 1,
-        justifyContent : "center",
+        flex : 1
     },
 
     imageStyles: {

@@ -2,7 +2,7 @@ import * as ACTION_TYPES from './ActionTypes';
 import * as FileSystem from 'expo-file-system';
 import { storePlaces, extractPlaces, deletePlace } from './../../helpers/db'
 
-export const PLACE_ADD_ACTION_CREATOR = (place = "", image = "") => {
+export const PLACE_ADD_ACTION_CREATOR = (place = "", image = "", lat = "", lng="") => {
     return async dispatch => {
         const fileName = image.split("/").pop();
         const newPath = FileSystem.documentDirectory + fileName;
@@ -16,7 +16,7 @@ export const PLACE_ADD_ACTION_CREATOR = (place = "", image = "") => {
 
             dispatch({
                 type: ACTION_TYPES.PLACE_ADD,
-                value: { id : String(x.insertId), place, image: newPath }
+                value: { id : String(x.insertId), place, image: newPath, lat, lng }
             })
         }
         catch (err) {

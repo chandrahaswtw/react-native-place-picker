@@ -7,8 +7,8 @@ import CustomHeaderButton from './../UI/CustomHeaderButton';
 const PlaceMap = props => {
 
     const [currentLocation, setLocation] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: props.navigation.getParam("lat") ? props.navigation.getParam("lat") : 37.78825,
+        longitude: props.navigation.getParam("lng") ? props.navigation.getParam("lng") : -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     })
@@ -30,13 +30,16 @@ const PlaceMap = props => {
         const lat = e.nativeEvent.coordinate.latitude;
         const lon = e.nativeEvent.coordinate.longitude;
 
-        setLocation((prev) => {
-            return {
-                ...prev,
-                latitude: lat,
-                longitude: lon
-            }
-        })
+        if (!props.navigation.getParam("readOnly")) {
+            setLocation((prev) => {
+                return {
+                    ...prev,
+                    latitude: lat,
+                    longitude: lon
+                }
+            })
+        }
+
     }
 
 
@@ -55,17 +58,21 @@ const styles = StyleSheet.create({
 PlaceMap.navigationOptions = navInfo => {
     const latitude = navInfo.navigation.getParam("latitude");
     const longitude = navInfo.navigation.getParam("longitude");
+    const readOnly = navInfo.navigation.getParam("readOnly");
+
 
     return {
         headerRight: () => {
-            return (
+            if(! readOnly) 
+            {return (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                     <Item title="OK" iconName="check" onPress={() => {
                         navInfo.navigation.navigate({ routeName: "ADDPLACE", params: { latitude, longitude } })
                     }}>
                     </Item>
                 </HeaderButtons>
-            )
+            )}
+            return
         }
     }
 }

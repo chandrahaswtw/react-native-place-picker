@@ -9,7 +9,7 @@ const initial_state = {
 const PlaceReducer = (state = initial_state, action) => {
     switch (action.type) {
         case ACTION_TYPES.PLACE_ADD:
-            var item = {id : action.value.id, info : {name : action.value.place, uri : action.value.image}}
+            var item = {id : action.value.id, info : {name : action.value.place, uri : action.value.image, lat : action.value.lat, lng: action.value.lng}}
             var placesClone = [...state.places , item];
             return {
                 places : placesClone

@@ -10,19 +10,18 @@ import CustomButton from './../../UI/CustomButton';
 
 const AddPlace = props => {
 
-    var latitude = props.navigation.getParam("latitude"); 
-    var longitude = props.navigation.getParam("longitude"); 
+    var latitude = props.navigation.getParam("latitude");
+    var longitude = props.navigation.getParam("longitude");
 
-    useEffect(()=>{
-        if(latitude && longitude)
-        {
+    useEffect(() => {
+        if (latitude && longitude) {
             props.setLocation({
-                lat : latitude,
-                lng : longitude
+                lat: latitude,
+                lng: longitude
             })
         }
-    },[latitude, longitude])
-    
+    }, [latitude, longitude])
+
 
     const cameraUsage = useCallback(async () => {
         const permissionResult = await SetPermissions(Permissions.CAMERA_ROLL, Permissions.CAMERA);
@@ -59,7 +58,10 @@ const AddPlace = props => {
             <LocationSection
                 location={props.location}
                 setLocation={props.setLocation}></LocationSection>
-            <CustomButton title="PICK A LOCATION" color={colors.primary} onPressHandler={()=>{props.navigation.navigate("PLACEMAP")}}></CustomButton>
+            <View style={{marginVertical : 8}}>
+                <Text style={{marginBottom : 10, textAlign : "center"}}>OR</Text>
+                <CustomButton title="PICK A LOCATION" color={colors.primary} onPressHandler={() => { props.navigation.navigate("PLACEMAP") }}></CustomButton>
+            </View>
         </View>
     )
 }

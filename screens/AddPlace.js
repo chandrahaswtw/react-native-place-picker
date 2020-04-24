@@ -17,7 +17,7 @@ const AddPlace = props => {
 
     const dispatchFunction = useCallback(() => {
         if (placeTitle && imgURI && location) {
-            dispatch(PLACE_ADD_ACTION_CREATOR(placeTitle, imgURI));
+            dispatch(PLACE_ADD_ACTION_CREATOR(placeTitle, imgURI, location.lat, location.lng));
             props.navigation.goBack();
         }
         else
